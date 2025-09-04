@@ -1,2 +1,2 @@
-# GAn
-simple frontend for the gan based urdu text generator
+# GAN
+simple frontend for the gan based urdu text generator using html, css javascript and flask as a server.
