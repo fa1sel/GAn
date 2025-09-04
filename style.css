@@ -1,0 +1,290 @@
+/* Basic Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Nastaliq Urdu', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    direction: rtl; /* Right-to-left for Urdu */
+    line-height: 1.7; /* Improved readability for Urdu */
+}
+
+.chat-container {
+    display: flex;
+    width: 90%;
+    max-width: 1000px; /* Max width of the chat interface */
+    height: 85vh; /* Viewport height */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Prevent content spill */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background-color: #e9ecef;
+    padding: 20px;
+    border-left: 1px solid #dee2e6; /* Border on the left for RTL */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    color: #343a40;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    border-bottom: 1px solid #ced4da;
+    padding-bottom: 10px;
+}
+
+.sidebar h2 i {
+    margin-left: 8px; /* Icon spacing for RTL */
+}
+
+.control-group {
+    margin-bottom: 20px;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #495057;
+    font-size: 0.9em;
+}
+
+.control-group input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+}
+
+.control-group input[type="number"] {
+    width: 60px; /* Smaller width */
+    padding: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.control-group span { /* For temperature value display */
+    display: inline-block;
+    margin-right: 10px; /* Space for RTL */
+    font-weight: bold;
+    color: #007bff;
+}
+
+.sidebar-info {
+    margin-top: auto; /* Push info to the bottom */
+    font-size: 0.8em;
+    color: #6c757d;
+    text-align: center;
+}
+
+/* Main Chat Area Styling */
+.main-chat {
+    flex-grow: 1; /* Take remaining space */
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+.chat-header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    border-bottom: 1px solid #0056b3;
+}
+
+.chat-header h1 {
+    margin: 0;
+    font-size: 1.4em;
+}
+.chat-header p {
+    margin: 5px 0 0;
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.chat-history {
+    flex-grow: 1;
+    overflow-y: auto; /* Enable scrolling for messages */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Message Styling */
+.message {
+    max-width: 75%;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word; /* Break long words */
+}
+
+.message p {
+    margin: 0;
+}
+
+.user-message {
+    background-color: #007bff;
+    color: white;
+    border-bottom-right-radius: 0; /* Pointy corner */
+    align-self: flex-start; /* Align user messages to the right in RTL */
+    margin-left: auto; /* Push to the right */
+}
+
+.bot-message {
+    background-color: #f1f3f5;
+    color: #343a40;
+    border: 1px solid #e9ecef;
+    border-bottom-left-radius: 0; /* Pointy corner */
+    align-self: flex-end; /* Align bot messages to the left in RTL */
+    margin-right: auto; /* Push to the left */
+}
+
+/* Loading Indicator */
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center horizontally */
+    align-self: center; /* Center vertically within flex column */
+    margin: 10px auto; /* Center horizontally */
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.loading-indicator span {
+    margin-right: 8px; /* Space between dots and text */
+}
+
+.dot-flashing {
+    position: relative;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: #007bff;
+    animation: dotFlashing 1s infinite linear alternate;
+    animation-delay: .5s;
+    display: inline-block; /* Make it inline */
+    margin: 0 2px; /* Spacing between dots */
+}
+
+.dot-flashing::before, .dot-flashing::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: #007bff;
+}
+
+.dot-flashing::before {
+    right: 8px; /* Position for RTL */
+    animation: dotFlashing 1s infinite alternate;
+    animation-delay: 0s;
+}
+
+.dot-flashing::after {
+    left: 8px; /* Position for RTL */
+    animation: dotFlashing 1s infinite alternate;
+    animation-delay: 1s;
+}
+
+@keyframes dotFlashing {
+    0% { background-color: #007bff; }
+    50%, 100% { background-color: rgba(0, 123, 255, 0.3); }
+}
+
+
+/* Chat Input Area Styling */
+.chat-input-area {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+#prompt-input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    resize: none; /* Prevent manual resizing */
+    font-family: inherit; /* Use the Noto Nastaliq font */
+    font-size: 1em;
+    margin-left: 10px; /* Space between input and button for RTL */
+    line-height: 1.5;
+    max-height: 100px; /* Limit height */
+    overflow-y: auto; /* Scroll if needed */
+}
+
+#send-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%; /* Make it circular */
+    width: 45px;
+    height: 45px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#send-button:hover {
+    background-color: #0056b3;
+}
+
+#send-button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .chat-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        flex-direction: column; /* Stack sidebar and chat vertically */
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto; /* Adjust height automatically */
+        border-left: none;
+        border-bottom: 1px solid #dee2e6; /* Border at the bottom */
+        flex-direction: row; /* Arrange controls horizontally */
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: space-around; /* Space out controls */
+        padding: 10px;
+    }
+     .sidebar h2 { display: none; } /* Hide sidebar title on mobile */
+     .sidebar-info { display: none; } /* Hide sidebar info on mobile */
+     .control-group { margin-bottom: 10px; flex-basis: 45%; } /* Adjust spacing and width */
+
+    .main-chat {
+        height: calc(100% - auto); /* Adjust height */
+    }
+    .message { max-width: 85%; }
+}
